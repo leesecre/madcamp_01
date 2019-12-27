@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         bt.setText("Button 1");
         linear.addView(bt);
+        // 232323233232232
 
         Button bt2 = new Button(this);
         bt2.setText("Button 2");
