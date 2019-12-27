@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.ListView;
@@ -17,6 +19,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     private ListView mListView;
@@ -81,13 +90,28 @@ public class MainActivity extends AppCompatActivity {
 
         ListAdapter mMyAdapter = new ListAdapter();
 
+        try{
+            JSONObject jsonObject = new JSONObject(getJsonString());
 
-        for (int i=0; i<30; i++) {
-            mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.icon), "name_" + i, "contents_" + i);
+            JSONArray contactArray = jsonObject.getJSONArray("Contacts");
+
+            for(int i=0; i<contactArray.length(); i++)
+            {
+                JSONObject contactObject = contactArray.getJSONObject(i);
+
+                mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.icon), contactObject.getString("name"), contactObject.getString("num"));
+
+            }
+            mListView.setAdapter(mMyAdapter);
+        }catch (JSONException e) {
+            e.printStackTrace();
         }
+        /*for (int i=0; i<30; i++) {
+            mMyAdapter.addItem(ContextCompat.getDrawable(getApplicationContext(), R.drawable.icon), "name_" + i, "contents_" + i);
+        }*/
 
         /* 리스트뷰에 어댑터 등록 */
-        mListView.setAdapter(mMyAdapter);
+        //mListView.setAdapter(mMyAdapter);
     }
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
@@ -125,6 +149,28 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageResource(mThumbIds[position]);
             return imageView;
         }
+    }
+
+    private String getJsonString()
+    {
+        String json = "";
+
+        try {
+            InputStream is = getAssets().open("contact");
+            int fileSize = is.available();
+
+            byte[] buffer = new byte[fileSize];
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return json;
     }
 
 
