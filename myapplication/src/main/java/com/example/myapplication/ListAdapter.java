@@ -14,6 +14,11 @@ import java.util.ArrayList;
 
 
 public class ListAdapter extends BaseAdapter{
+    private Context context;
+
+    public ListAdapter(Context c) {
+        context = c;
+    }
 
     /* 아이템을 세트로 담기 위한 어레이 */
     private ArrayList<ItemData> mItems = new ArrayList<>();
