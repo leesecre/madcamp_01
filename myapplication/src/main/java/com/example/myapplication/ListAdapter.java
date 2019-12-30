@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 
 public class ListAdapter extends BaseAdapter{
-    private Context context;
-
-    public ListAdapter(Context c) {
-        context = c;
+    private LayoutInflater mInflater;
+    public ListAdapter(Context context) {
+        mInflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /* 아이템을 세트로 담기 위한 어레이 */

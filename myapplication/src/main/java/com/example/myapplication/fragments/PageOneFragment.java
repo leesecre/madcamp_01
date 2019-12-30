@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class PageOneFragment extends Fragment {
+    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
     ListView mListView;
 
     public PageOneFragment() {
@@ -29,23 +31,27 @@ public class PageOneFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.page_one_fragment,container,false);
-        ListAdapter mMyAdapter = new ListAdapter(getContext());
+        ListAdapter mMyAdapter = new ListAdapter(getActivity());
         mListView = (ListView)rootview.findViewById(R.id.listView1);
+        mListView.setAdapter(mMyAdapter);
         try{
             JSONObject jsonObject = new JSONObject(getJsonString());
-            JSONArray contactArray = jsonObject.getJSONArray("contacts");
-
+            JSONArray contactArray = jsonObject.getJSONArray("Contacts");
             for(int i=0; i<contactArray.length(); i++)
             {
                 JSONObject contactObject = contactArray.getJSONObject(i);
 
-                mMyAdapter.addItem(ContextCompat.getDrawable(((MainActivity)getActivity()).getApplicationContext(), R.drawable.icon), contactObject.getString("name"), contactObject.getString("num"));
+                mMyAdapter.addItem(ContextCompat.getDrawable(getContext(), R.drawable.vfdvdfdfv),contactObject.getString("name"), contactObject.getString("num"));
 
             }
             mListView.setAdapter(mMyAdapter);
         }catch (JSONException e) {
             e.printStackTrace();
         }
+//        mMyAdapter.addItem(ContextCompat.getDrawable(getContext(), R.drawable.vfdvdfdfv),
+//                "Box", "Account Box Black 36dp") ;
+        // 두 번째 아이템 추가.
+
 
 
         return rootview;

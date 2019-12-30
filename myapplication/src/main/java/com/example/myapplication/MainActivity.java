@@ -2,17 +2,10 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.ListView;
-
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import android.widget.GridView;
-import android.widget.Toast;
 
 
 import com.example.myapplication.fragments.PageOneFragment;
@@ -20,16 +13,9 @@ import com.example.myapplication.fragments.PageThreeFragment;
 import com.example.myapplication.fragments.PageTwoFragment;
 import com.google.android.material.tabs.TabLayout;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    static final String[] LIST_MENU = {"LIST1", "LIST2", "LIST3"} ;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
@@ -67,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });*/
+        // 위에는 TabHost 방식으로 구현한 것. 주석처리
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -81,14 +68,6 @@ public class MainActivity extends AppCompatActivity {
         pgoneFrag = new PageOneFragment();
         pgtwoFrag = new PageTwoFragment();
         pgthrFrag = new PageThreeFragment();
-
-
-
-
-
-
-
-
     }
 
 
